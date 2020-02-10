@@ -1092,6 +1092,7 @@
 (assert_return (invoke "ϔ") (i32.const 477))
 (assert_return (invoke "ẛ") (i32.const 478))
 
+(;
 (module
   ;; Test that we can use indices instead of names to reference imports,
   ;; exports, functions and parameters.
@@ -1105,3 +1106,4 @@
 )
 
 (assert_return (invoke "print32" (i32.const 42) (i32.const 123)))
+;)

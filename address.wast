@@ -494,6 +494,7 @@
 (assert_trap (invoke "32s_bad" (i32.const 0)) "out of bounds memory access")
 (assert_trap (invoke "64_bad" (i32.const 1)) "out of bounds memory access")
 
+(;
 ;; Load f32 data with different offset/align arguments
 
 (module
@@ -587,3 +588,4 @@
 
 (assert_trap (invoke "64_bad" (i32.const 0)) "out of bounds memory access")
 (assert_trap (invoke "64_bad" (i32.const 1)) "out of bounds memory access")
+;)

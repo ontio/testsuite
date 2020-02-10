@@ -5,14 +5,15 @@
 
   (func (export "type-local-i32") (local i32) (local.set 0 (i32.const 0)))
   (func (export "type-local-i64") (local i64) (local.set 0 (i64.const 0)))
-  (func (export "type-local-f32") (local f32) (local.set 0 (f32.const 0)))
-  (func (export "type-local-f64") (local f64) (local.set 0 (f64.const 0)))
+  ;;(func (export "type-local-f32") (local f32) (local.set 0 (f32.const 0)))
+  ;;(func (export "type-local-f64") (local f64) (local.set 0 (f64.const 0)))
 
   (func (export "type-param-i32") (param i32) (local.set 0 (i32.const 10)))
   (func (export "type-param-i64") (param i64) (local.set 0 (i64.const 11)))
-  (func (export "type-param-f32") (param f32) (local.set 0 (f32.const 11.1)))
-  (func (export "type-param-f64") (param f64) (local.set 0 (f64.const 12.2)))
+  ;;(func (export "type-param-f32") (param f32) (local.set 0 (f32.const 11.1)))
+  ;;(func (export "type-param-f64") (param f64) (local.set 0 (f64.const 12.2)))
 
+(;
   (func (export "type-mixed") (param i64 f32 f64 i32 i32) (local f32 i64 i64 f64)
     (local.set 0 (i64.const 0))
     (local.set 1 (f32.const 0))
@@ -24,9 +25,11 @@
     (local.set 7 (i64.const 0))
     (local.set 8 (f64.const 0))
   )
+;)
 
   ;; Writing
 
+(;
   (func (export "write") (param i64 f32 f64 i32 i32) (result i64)
     (local f32 i64 i64 f64)
     (local.set 1 (f32.const -0.3))
@@ -63,6 +66,7 @@
       )
     )
   )
+;)
 
   ;; As parameter of control constructs and instructions
 
@@ -106,13 +110,13 @@
 
 (assert_return (invoke "type-local-i32"))
 (assert_return (invoke "type-local-i64"))
-(assert_return (invoke "type-local-f32"))
-(assert_return (invoke "type-local-f64"))
+;;(assert_return (invoke "type-local-f32"))
+;;(assert_return (invoke "type-local-f64"))
 
 (assert_return (invoke "type-param-i32" (i32.const 2)))
 (assert_return (invoke "type-param-i64" (i64.const 3)))
-(assert_return (invoke "type-param-f32" (f32.const 4.4)))
-(assert_return (invoke "type-param-f64" (f64.const 5.5)))
+;;(assert_return (invoke "type-param-f32" (f32.const 4.4)))
+;;(assert_return (invoke "type-param-f64" (f64.const 5.5)))
 
 (assert_return (invoke "as-block-value" (i32.const 0)))
 (assert_return (invoke "as-loop-value" (i32.const 0)))
@@ -127,18 +131,22 @@
 (assert_return (invoke "as-if-then" (i32.const 1)))
 (assert_return (invoke "as-if-else" (i32.const 0)))
 
+(;
 (assert_return
   (invoke "type-mixed"
     (i64.const 1) (f32.const 2.2) (f64.const 3.3) (i32.const 4) (i32.const 5)
   )
 )
+;)
 
+(;
 (assert_return
   (invoke "write"
     (i64.const 1) (f32.const 2) (f64.const 3.3) (i32.const 4) (i32.const 5)
   )
   (i64.const 56)
 )
+;)
 
 
 ;; Invalid typing of access to locals

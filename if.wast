@@ -326,14 +326,14 @@
     )
   )
   (func (export "as-compare-operand") (param i32 i32) (result i32)
-    (f32.gt
-      (if (result f32) (local.get 0)
-        (then (call $dummy) (f32.const 3))
-        (else (call $dummy) (f32.const -3))
+    (i32.gt_s
+      (if (result i32) (local.get 0)
+        (then (call $dummy) (i32.const 3))
+        (else (call $dummy) (i32.const -3))
       )
-      (if (result f32) (local.get 1)
-        (then (call $dummy) (f32.const 4))
-        (else (call $dummy) (f32.const -4))
+      (if (result i32) (local.get 1)
+        (then (call $dummy) (i32.const 4))
+        (else (call $dummy) (i32.const -4))
       )
     )
   )
@@ -504,11 +504,11 @@
   "type mismatch"
 )
 (assert_invalid
-  (module (func $type-empty-f32 (result f32) (if (i32.const 0) (then))))
+  (module (func $type-empty-i32 (result i32) (if (i32.const 0) (then))))
   "type mismatch"
 )
 (assert_invalid
-  (module (func $type-empty-f64 (result f64) (if (i32.const 0) (then))))
+  (module (func $type-empty-i64 (result i64) (if (i32.const 0) (then))))
   "type mismatch"
 )
 
@@ -521,11 +521,11 @@
   "type mismatch"
 )
 (assert_invalid
-  (module (func $type-empty-f32 (result f32) (if (i32.const 0) (then) (else))))
+  (module (func $type-empty-i32 (result i32) (if (i32.const 0) (then) (else))))
   "type mismatch"
 )
 (assert_invalid
-  (module (func $type-empty-f64 (result f64) (if (i32.const 0) (then) (else))))
+  (module (func $type-empty-i64 (result i64) (if (i32.const 0) (then) (else))))
   "type mismatch"
 )
 
@@ -618,7 +618,7 @@
 )
 (assert_invalid
   (module (func $type-both-different-value-num-vs-num (result i32)
-    (if (result i32) (i32.const 1) (then (i64.const 1)) (else (f64.const 1)))
+    (if (result i32) (i32.const 1) (then (i64.const 1)) (else (i64.const 1)))
   ))
   "type mismatch"
 )

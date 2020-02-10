@@ -12,8 +12,8 @@
 (module (memory 0) (func (drop (i64.load32_s align=4 (i32.const 0)))))
 (module (memory 0) (func (drop (i64.load32_u align=4 (i32.const 0)))))
 (module (memory 0) (func (drop (i64.load align=8 (i32.const 0)))))
-(module (memory 0) (func (drop (f32.load align=4 (i32.const 0)))))
-(module (memory 0) (func (drop (f64.load align=8 (i32.const 0)))))
+;;(module (memory 0) (func (drop (f32.load align=4 (i32.const 0)))))
+;;(module (memory 0) (func (drop (f64.load align=8 (i32.const 0)))))
 (module (memory 0) (func (i32.store8 align=1 (i32.const 0) (i32.const 1))))
 (module (memory 0) (func (i32.store16 align=2 (i32.const 0) (i32.const 1))))
 (module (memory 0) (func (i32.store align=4 (i32.const 0) (i32.const 1))))
@@ -21,8 +21,8 @@
 (module (memory 0) (func (i64.store16 align=2 (i32.const 0) (i64.const 1))))
 (module (memory 0) (func (i64.store32 align=4 (i32.const 0) (i64.const 1))))
 (module (memory 0) (func (i64.store align=8 (i32.const 0) (i64.const 1))))
-(module (memory 0) (func (f32.store align=4 (i32.const 0) (f32.const 1.0))))
-(module (memory 0) (func (f64.store align=8 (i32.const 0) (f64.const 1.0))))
+;;(module (memory 0) (func (f32.store align=4 (i32.const 0) (f32.const 1.0))))
+;;(module (memory 0) (func (f64.store align=8 (i32.const 0) (f64.const 1.0))))
 
 (assert_malformed
   (module quote
@@ -459,7 +459,7 @@
   (memory 1)
 
   ;; $default: natural alignment, $1: align=1, $2: align=2, $4: align=4, $8: align=8
-
+(;
   (func (export "f32_align_switch") (param i32) (result f32)
     (local f32 f32)
     (local.set 1 (f32.const 10.0))
@@ -520,6 +520,7 @@
     ) ;; 8
     (local.get 2)
   )
+;)
 
   ;; $8s: i32/i64.load8_s, $8u: i32/i64.load8_u, $16s: i32/i64.load16_s, $16u: i32/i64.load16_u, $32: i32.load
   ;; $32s: i64.load32_s, $32u: i64.load32_u, $64: i64.load
@@ -799,16 +800,16 @@
   )
 )
 
-(assert_return (invoke "f32_align_switch" (i32.const 0)) (f32.const 10.0))
-(assert_return (invoke "f32_align_switch" (i32.const 1)) (f32.const 10.0))
-(assert_return (invoke "f32_align_switch" (i32.const 2)) (f32.const 10.0))
-(assert_return (invoke "f32_align_switch" (i32.const 3)) (f32.const 10.0))
+;;(assert_return (invoke "f32_align_switch" (i32.const 0)) (f32.const 10.0))
+;;(assert_return (invoke "f32_align_switch" (i32.const 1)) (f32.const 10.0))
+;;(assert_return (invoke "f32_align_switch" (i32.const 2)) (f32.const 10.0))
+;;(assert_return (invoke "f32_align_switch" (i32.const 3)) (f32.const 10.0))
 
-(assert_return (invoke "f64_align_switch" (i32.const 0)) (f64.const 10.0))
-(assert_return (invoke "f64_align_switch" (i32.const 1)) (f64.const 10.0))
-(assert_return (invoke "f64_align_switch" (i32.const 2)) (f64.const 10.0))
-(assert_return (invoke "f64_align_switch" (i32.const 3)) (f64.const 10.0))
-(assert_return (invoke "f64_align_switch" (i32.const 4)) (f64.const 10.0))
+;;(assert_return (invoke "f64_align_switch" (i32.const 0)) (f64.const 10.0))
+;;(assert_return (invoke "f64_align_switch" (i32.const 1)) (f64.const 10.0))
+;;(assert_return (invoke "f64_align_switch" (i32.const 2)) (f64.const 10.0))
+;;(assert_return (invoke "f64_align_switch" (i32.const 3)) (f64.const 10.0))
+;;(assert_return (invoke "f64_align_switch" (i32.const 4)) (f64.const 10.0))
 
 (assert_return (invoke "i32_align_switch" (i32.const 0) (i32.const 0)) (i32.const 10))
 (assert_return (invoke "i32_align_switch" (i32.const 0) (i32.const 1)) (i32.const 10))
