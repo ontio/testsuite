@@ -36,6 +36,7 @@
 (assert_trap (invoke "no_dce.i64.rem_s" (i64.const 1) (i64.const 0)) "integer divide by zero")
 (assert_trap (invoke "no_dce.i64.rem_u" (i64.const 1) (i64.const 0)) "integer divide by zero")
 
+(;
 (module
   (func (export "no_dce.i32.trunc_f32_s") (param $x f32) (drop (i32.trunc_f32_s (local.get $x))))
   (func (export "no_dce.i32.trunc_f32_u") (param $x f32) (drop (i32.trunc_f32_u (local.get $x))))
@@ -55,6 +56,7 @@
 (assert_trap (invoke "no_dce.i64.trunc_f32_u" (f32.const nan)) "invalid conversion to integer")
 (assert_trap (invoke "no_dce.i64.trunc_f64_s" (f64.const nan)) "invalid conversion to integer")
 (assert_trap (invoke "no_dce.i64.trunc_f64_u" (f64.const nan)) "invalid conversion to integer")
+;)
 
 (module
     (memory 1)
@@ -71,8 +73,8 @@
     (func (export "no_dce.i64.load16_u") (param $i i32) (drop (i64.load16_u (local.get $i))))
     (func (export "no_dce.i64.load8_s") (param $i i32) (drop (i64.load8_s (local.get $i))))
     (func (export "no_dce.i64.load8_u") (param $i i32) (drop (i64.load8_u (local.get $i))))
-    (func (export "no_dce.f32.load") (param $i i32) (drop (f32.load (local.get $i))))
-    (func (export "no_dce.f64.load") (param $i i32) (drop (f64.load (local.get $i))))
+    ;;(func (export "no_dce.f32.load") (param $i i32) (drop (f32.load (local.get $i))))
+    ;;(func (export "no_dce.f64.load") (param $i i32) (drop (f64.load (local.get $i))))
 )
 
 (assert_trap (invoke "no_dce.i32.load" (i32.const 65536)) "out of bounds memory access")
@@ -87,5 +89,5 @@
 (assert_trap (invoke "no_dce.i64.load16_u" (i32.const 65536)) "out of bounds memory access")
 (assert_trap (invoke "no_dce.i64.load8_s" (i32.const 65536)) "out of bounds memory access")
 (assert_trap (invoke "no_dce.i64.load8_u" (i32.const 65536)) "out of bounds memory access")
-(assert_trap (invoke "no_dce.f32.load" (i32.const 65536)) "out of bounds memory access")
-(assert_trap (invoke "no_dce.f64.load" (i32.const 65536)) "out of bounds memory access")
+;;(assert_trap (invoke "no_dce.f32.load" (i32.const 65536)) "out of bounds memory access")
+;;(assert_trap (invoke "no_dce.f64.load" (i32.const 65536)) "out of bounds memory access")

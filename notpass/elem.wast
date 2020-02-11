@@ -50,6 +50,7 @@
   (elem (i32.const 5) $f)
 )
 
+(;
 (module
   (global (import "spectest" "global_i32") i32)
   (table 1000 funcref)
@@ -63,6 +64,7 @@
   (func $f)
   (elem (global.get $g) $f)
 )
+;)
 
 (module
   (type $out-i32 (func (result i32)))
@@ -317,7 +319,7 @@
 
 (module
   (type $out-i32 (func (result i32)))
-  (import "spectest" "table" (table 10 funcref))
+  (table 10 funcref)
   (elem (i32.const 9) $const-i32-a)
   (elem (i32.const 9) $const-i32-b)
   (func $const-i32-a (type $out-i32) (i32.const 65))
@@ -348,11 +350,12 @@
   )
 )
 
-(register "module1" $module1)
-
 (assert_trap (invoke $module1 "call-7") "uninitialized element")
 (assert_return (invoke $module1 "call-8") (i32.const 65))
 (assert_return (invoke $module1 "call-9") (i32.const 66))
+
+(; 
+(register "module1" $module1)
 
 (module $module2
   (type $out-i32 (func (result i32)))
@@ -379,3 +382,4 @@
 (assert_return (invoke $module1 "call-7") (i32.const 67))
 (assert_return (invoke $module1 "call-8") (i32.const 69))
 (assert_return (invoke $module1 "call-9") (i32.const 70))
+;)

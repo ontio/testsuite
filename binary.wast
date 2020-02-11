@@ -780,6 +780,7 @@
   "invalid value type"
 )
 
+(;
 ;; Start section
 (module binary
   "\00asm" "\01\00\00\00"
@@ -792,6 +793,7 @@
   "\02\00"
   "\0b"                      ;; end
 )
+;)
 
 ;; Multiple start sections
 (assert_malformed
@@ -809,3 +811,4 @@
   )
   "junk after last section"
 )
+
